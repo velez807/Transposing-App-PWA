@@ -2,15 +2,46 @@ function transposeNotesClassic() {
     var notas = ["DO", "DO#", "RE", "RE#", "MI", "FA", "FA#", "SOL", "SOL#", "LA", "LA#", "SI"]
 
     var original = document.getElementById("original").value;
+    var nOriginal = numeroNota(original, notas);
     var destino = document.getElementById("destino").value;
+    var nDestino = numeroNota(destino, notas);
+
+    // Funcion para saber hacia donde hay que hacer el recorrido en la lista de notas
+    if (nOriginal > nDestino) {
+        var recorrido = nDestino - nOriginal;
+    }
+    else if (nOriginal < nDestino) {
+        var recorrido = 12 - nOriginal + nDestino;
+    }
+    var resultado = [];
 
     var notasInput = document.getElementById("notesInput").value;
     notasInput = notasInput.toUpperCase();
+    var notasArray = notasInput.split(" ");
+    notasArray = bemolSostenido(notasArray, 0);
 
     var textareaResult = document.getElementById("resultTextarea");
 
-    // mostrar las notasinput en el textarea
-    textareaResult.value = original + " " + notasInput + " " + destino + "Clásicas" + "\n";
+    // Función para transponer las notas
+    for (var i = 0; i < notasArray.length; i++) {
+        var notaOriginal = notasArray[i];
+        var nNotaOriginal = numeroNota(notaOriginal, notas);
+        if (nNotaOriginal !== -1) {
+            var nNotaTranspuesta = (nNotaOriginal - recorrido + notas.length) % notas.length;
+            if (nNotaTranspuesta < 0) {
+                nNotaTranspuesta += notas.length; // Desplazamiento cíclico hacia la izquierda
+            }
+            var notaTranspuesta = notas[nNotaTranspuesta];
+            var notaTranspuestaCapitalizada = notaTranspuesta.charAt(0).toUpperCase() + notaTranspuesta.slice(1).toLowerCase();
+            resultado.push(notaTranspuestaCapitalizada);
+        } else {
+            resultado.push('???');
+        }
+    }
+
+    // Resultado final
+    textareaResult.value += resultado.join(" ") + "\n";
+
 }
 
 function transposeNotesAmerican() {
@@ -28,6 +59,83 @@ function transposeNotesAmerican() {
     textareaResult.value = original + " " + notasInput + " " + destino + "Americanas" + "\n";
 }
 
+function bemolSostenido(notasArray, modo) {
+    if (modo == 0) {
+        for (var i = 0; i < notasArray.length; i++) {
+            switch (notasArray[i]) {
+                case "DOB":
+                    notasArray[i] = "SI";
+                    break;
+                case "REB":
+                    notasArray[i] = "DO#";
+                    break;
+                case "MIB":
+                    notasArray[i] = "RE#";
+                    break;
+                case "FAB":
+                    notasArray[i] = "MI";
+                    break;
+                case "SOLB":
+                    notasArray[i] = "FA#";
+                    break;
+                case "LAB":
+                    notasArray[i] = "SOL#";
+                    break;
+                case "SIB":
+                    notasArray[i] = "LA#";
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    else if (modo == 1) {
+        for (var i = 0; i < notasArray.length; i++) {
+            switch (notasArray[i]) {
+                case "CB":
+                    notasArray[i] = "B";
+                    break;
+                case "DB":
+                    notasArray[i] = "C#";
+                    break;
+                case "EB":
+                    notasArray[i] = "D#";
+                    break;
+                case "FB":
+                    notasArray[i] = "E";
+                    break;
+                case "GB":
+                    notasArray[i] = "F#";
+                    break;
+                case "AB":
+                    notasArray[i] = "G#";
+                    break;
+                case "BB":
+                    notasArray[i] = "A#";
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    return notasArray;
+}
+
+function numeroNota(nota, notas) {
+    nota = nota.toUpperCase();
+    for (var i = 0; i < notas.length; i++) {
+        if (notas[i].toUpperCase() === nota) {
+            return i;
+        }
+    }
+    return -1; // Retorna -1 si la nota no se encuentra en el arreglo
+}
+
+function limpiarTextarea() {
+    document.getElementById("resultTextarea").value = "";
+    document.getElementById("resultTextarea1").value = "";
+}
 
 function handleKeyPress(event) {
     if (event.keyCode === 13) {
@@ -70,5 +178,12 @@ function changeTab(event, tabName) {
         tradicional.style.display = 'block';
     }
 }
+
+window.addEventListener('resize', function () {
+    var minWidth = 400; 
+    if (window.innerWidth < minWidth) {
+        window.resizeTo(minWidth, window.innerHeight);
+    }
+});
 
 
