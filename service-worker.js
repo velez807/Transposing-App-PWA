@@ -5,7 +5,8 @@ const urlsToCache = [
     './style.css',
     './script.js',
     './img/flecha.png',
-    './img/musica.png'
+    './img/musica.png',
+    './img/borrador.png'
     // Agrega aquí los archivos que deseas almacenar en caché
 ];
 
