@@ -1,11 +1,11 @@
 const CACHE_NAME = 'my-cache-v1';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/script.js',
-    '/img/flecha.png',
-    '/img/musica.png'
+    './',
+    './index.html',
+    './style.css',
+    './script.js',
+    './img/flecha.png',
+    './img/musica.png'
     // Agrega aquí los archivos que deseas almacenar en caché
 ];
 
