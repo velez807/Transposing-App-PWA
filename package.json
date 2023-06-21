@@ -1,0 +1,27 @@
+{
+  "name": "transposing-app",
+  "version": "1.0.0",
+  "description": "Web based aplication for basic notes transcription between tones",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/velez807/Transposing-App-PWA.git"
+  },
+  "keywords": [
+    "music",
+    "notes",
+    "transposition"
+  ],
+  "author": "Juan Sebastian Velez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/velez807/Transposing-App-PWA/issues"
+  },
+  "homepage": "https://github.com/velez807/Transposing-App-PWA#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

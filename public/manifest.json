@@ -1,0 +1,16 @@
+{
+    "name": "Transposing App",
+    "short_name": "Transposing",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1f2326",
+    "icons": [
+      {
+        "src": "./img/musica.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
